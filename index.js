@@ -22,54 +22,40 @@ function capitalize(string) {
 }
 
 function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
+  playerSelection = capitalize(playerSelection);
+  computerSelection = capitalize(computerSelection);
   let winOrLost = "";
   let description = "";
   if (playerSelection === computerSelection) {
     winOrLost = "Draw!";
-    description = `${capitalize(playerSelection)} equals ${capitalize(
-      computerSelection
-    )}`;
+    description = `${playerSelection} equals ${computerSelection}`;
   } else {
     switch (playerSelection) {
-      case "rock":
-        if (computerSelection === "scissors") {
+      case "Rock":
+        if (computerSelection === "Scissors") {
           winOrLost = "You win!";
-          description = `${capitalize(playerSelection)} beats ${capitalize(
-            computerSelection
-          )}`;
+          description = `${playerSelection} beats ${computerSelection}`;
         } else {
           winOrLost = "You lose!";
-          description = `${capitalize(computerSelection)} beats ${capitalize(
-            playerSelection
-          )}`;
+          description = `${computerSelection} beats ${playerSelection}`;
         }
         break;
-      case "paper":
-        if (computerSelection === "rock") {
+      case "Paper":
+        if (computerSelection === "Rock") {
           winOrLost = "You win!";
-          description = `${capitalize(playerSelection)} beats ${capitalize(
-            computerSelection
-          )}`;
+          description = `${playerSelection} beats ${computerSelection}`;
         } else {
           winOrLost = "You lose!";
-          description = `${capitalize(computerSelection)} beats ${capitalize(
-            playerSelection
-          )}`;
+          description = `${computerSelection} beats ${playerSelection}`;
         }
         break;
-      case "scissors":
-        if (computerSelection === "paper") {
+      case "Scissors":
+        if (computerSelection === "Paper") {
           winOrLost = "You win!";
-          description = `${capitalize(playerSelection)} beats ${capitalize(
-            computerSelection
-          )}`;
+          description = `${playerSelection} beats ${computerSelection}`;
         } else {
           winOrLost = "You lose!";
-          description = `${capitalize(computerSelection)} beats ${capitalize(
-            playerSelection
-          )}`;
+          description = `${computerSelection} beats ${playerSelection}`;
         }
         break;
       default:
