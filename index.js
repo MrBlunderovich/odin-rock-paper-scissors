@@ -78,3 +78,17 @@ function playRound(playerSelection, computerSelection) {
   }
   return `${winOrLost} ${description}`;
 }
+
+function getUserChoice() {
+  let userChoice = "";
+  do {
+    userChoice = prompt("Rock? Paper? Scissors?: ").toLowerCase();
+  } while (
+    userChoice !== "rock" &&
+    userChoice !== "paper" &&
+    userChoice !== "scissors"
+  );
+  return userChoice;
+}
+
+function game() {}
