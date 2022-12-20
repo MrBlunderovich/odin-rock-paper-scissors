@@ -98,8 +98,6 @@ function game() {
   };
   for (let i = 1; i <= 5; i++) {
     let roundResult = playRound(getUserChoice(), getComputerChoice());
-    //console.log(roundResult);
-    //roundResult = roundResult.toLowerCase()
     if (roundResult.includes("win")) {
       score.user += 1;
     } else if (roundResult.includes("lose")) {
@@ -110,11 +108,11 @@ function game() {
     }
     console.log(`${score.user}:${score.computer} ${roundResult}`);
   }
-  console.log(`P${score.user} : C${score.computer}`);
-  //call getUserChoice
-  //call playRound
-  //display result
-  //update score
-
-  //display match score
+  if (score.computer > score.user) {
+    console.log(`Game over! Computer wins ${score.computer}:${score.user}`);
+  } else if (score.computer < score.user) {
+    console.log(`Game over! You win ${score.user}:${score.computer}`);
+  } else {
+    console.log(`Game over! Draw ${score.user}:${score.computer}`);
+  }
 }
