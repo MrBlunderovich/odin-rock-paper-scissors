@@ -15,3 +15,64 @@ function getComputerChoice() {
       break;
   }
 }
+
+//TODO function capitalize(string){}
+
+function playRound(playerSelection, computerSelection) {
+  playerSelection = playerSelection.toLowerCase();
+  computerSelection = computerSelection.toLowerCase();
+  let winOrLost = "";
+  let description = "";
+  if (playerSelection === computerSelection) {
+    //declare draw
+    winOrLost = "Draw!";
+    description = `${capitalize(playerSelection)} equals ${capitalize(
+      computerSelection
+    )}`;
+  } else {
+    switch (playerSelection) {
+      case "rock":
+        if (computerSelection === "scissors") {
+          winOrLost = "You win!";
+          description = `${capitalize(playerSelection)} beats ${capitalize(
+            computerSelection
+          )}`;
+        } else {
+          winOrLost = "You lose!";
+          description = `${capitalize(computerSelection)} beats ${capitalize(
+            playerSelection
+          )}`;
+        }
+        break;
+      case "paper":
+        if (computerSelection === "rock") {
+          winOrLost = "You win!";
+          description = `${capitalize(playerSelection)} beats ${capitalize(
+            computerSelection
+          )}`;
+        } else {
+          winOrLost = "You lose!";
+          description = `${capitalize(computerSelection)} beats ${capitalize(
+            playerSelection
+          )}`;
+        }
+        break;
+      case "scissors":
+        if (computerSelection === "paper") {
+          winOrLost = "You win!";
+          description = `${capitalize(playerSelection)} beats ${capitalize(
+            computerSelection
+          )}`;
+        } else {
+          winOrLost = "You lose!";
+          description = `${capitalize(computerSelection)} beats ${capitalize(
+            playerSelection
+          )}`;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  return `${winOrLost} ${description}`;
+}
