@@ -16,7 +16,10 @@ function getComputerChoice() {
   }
 }
 
-//TODO function capitalize(string){}
+function capitalize(string) {
+  string = string.toLowerCase();
+  return `${string[0].toUpperCase()}${string.slice(1)}`;
+}
 
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
@@ -24,7 +27,6 @@ function playRound(playerSelection, computerSelection) {
   let winOrLost = "";
   let description = "";
   if (playerSelection === computerSelection) {
-    //declare draw
     winOrLost = "Draw!";
     description = `${capitalize(playerSelection)} equals ${capitalize(
       computerSelection
