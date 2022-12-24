@@ -62,6 +62,7 @@ function playRound(playerSelection, computerSelection) {
         break;
     }
   }
+  display.textContent = `Computer chose ${computerSelection}. ${winOrLost} ${description}`;
   return `${winOrLost} ${description}`;
 }
 
@@ -76,6 +77,16 @@ function getUserChoice() {
   );
   return userChoice;
 }
+
+const display = document.querySelector("#display");
+
+const buttons = document.querySelectorAll(".rps-button");
+console.log(buttons);
+buttons.forEach((button) => {
+  button.addEventListener("click", () =>
+    playRound(button.id, getComputerChoice())
+  );
+});
 
 function game() {
   let score = {
