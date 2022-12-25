@@ -62,8 +62,9 @@ function playRound(playerSelection, computerSelection) {
         break;
     }
   }
-  display.textContent = `Computer chose ${computerSelection}. ${winOrLost} ${description}`;
-  return `${winOrLost} ${description}`;
+  //display.textContent = `Computer chose ${computerSelection}. ${winOrLost} ${description}. ${score.user}:${score.computer}`;
+  //return `${winOrLost} ${description}`;
+  return `Computer chose ${computerSelection}. ${winOrLost} ${description}.`;
 }
 
 function getUserChoice() {
@@ -81,20 +82,22 @@ function getUserChoice() {
 const display = document.querySelector("#display");
 
 const buttons = document.querySelectorAll(".rps-button");
-console.log(buttons);
+//console.log(buttons);
 buttons.forEach((button) => {
-  button.addEventListener("click", () =>
+  button.addEventListener("click", () => game(button.id, getComputerChoice()));
+  /* button.addEventListener("click", () =>
     playRound(button.id, getComputerChoice())
-  );
+  ); */
 });
 
-function game() {
-  let score = {
-    computer: 0,
-    user: 0,
-  };
-  for (let i = 1; i <= 5; i++) {
-    let roundResult = playRound(getUserChoice(), getComputerChoice());
+const score = {
+  computer: 0,
+  user: 0,
+};
+
+function game(userChoice, computerChoice) {
+  if (score.computer < 5 && score.user < 5) {
+    let roundResult = playRound(userChoice, computerChoice);
     if (roundResult.includes("win")) {
       score.user += 1;
     } else if (roundResult.includes("lose")) {
@@ -103,13 +106,29 @@ function game() {
     } else {
       console.log("wtf?");
     }
-    console.log(`${score.user}:${score.computer} ${roundResult}`);
-  }
-  if (score.computer > score.user) {
-    console.log(`Game over! Computer wins ${score.computer}:${score.user}`);
-  } else if (score.computer < score.user) {
-    console.log(`Game over! You win ${score.user}:${score.computer}`);
+    display.textContent = `${roundResult} ${score.user}:${score.computer}`;
+    //console.log(`${score.user}:${score.computer} ${roundResult}`);
   } else {
-    console.log(`Game over! Draw ${score.user}:${score.computer}`);
+    let matchResult = "";
+    if (score.computer > score.user) {
+      matchResult = `Game over! Computer wins ${score.computer}:${score.user}`;
+    } else if (score.computer < score.user) {
+      matchResult = `Game over! You win ${score.user}:${score.computer}`;
+    } else {
+      matchResult = `Game over! Draw ${score.user}:${score.computer}`;
+    }
+    display.textContent = `${matchResult}\n Click here to start a new game.`;
+    display.addEventListener("click", refresh);
+    display.classList.add("pointerable");
+    //score.computer = 0;
+    //score.user = 0;
   }
+}
+
+function refresh() {
+  score.computer = 0;
+  score.user = 0;
+  display.removeEventListener("click", refresh);
+  display.textContent = "Click a button to start";
+  display.classList.remove("pointerable");
 }
