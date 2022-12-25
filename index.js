@@ -1,3 +1,12 @@
+const display = document.querySelector("#display");
+
+const buttons = document.querySelectorAll(".rps-button");
+
+const score = {
+  computer: 0,
+  user: 0,
+};
+
 function getComputerChoice() {
   const choice = Math.floor(Math.random() * 3) + 1;
   switch (choice) {
@@ -79,33 +88,17 @@ function getUserChoice() {
   return userChoice;
 }
 
-const display = document.querySelector("#display");
-
-const buttons = document.querySelectorAll(".rps-button");
-//console.log(buttons);
-buttons.forEach((button) => {
-  button.addEventListener("click", () => game(button.id, getComputerChoice()));
-  /* button.addEventListener("click", () =>
-    playRound(button.id, getComputerChoice())
-  ); */
-});
-
-const score = {
-  computer: 0,
-  user: 0,
-};
-
 function game(userChoice, computerChoice) {
+  let roundResult = playRound(userChoice, computerChoice);
+  if (roundResult.includes("win")) {
+    score.user += 1;
+  } else if (roundResult.includes("lose")) {
+    score.computer += 1;
+  } else if (roundResult.includes("Draw")) {
+  } else {
+    console.log("wtf?");
+  }
   if (score.computer < 5 && score.user < 5) {
-    let roundResult = playRound(userChoice, computerChoice);
-    if (roundResult.includes("win")) {
-      score.user += 1;
-    } else if (roundResult.includes("lose")) {
-      score.computer += 1;
-    } else if (roundResult.includes("Draw")) {
-    } else {
-      console.log("wtf?");
-    }
     display.textContent = `${roundResult} ${score.user}:${score.computer}`;
     //console.log(`${score.user}:${score.computer} ${roundResult}`);
   } else {
@@ -117,11 +110,13 @@ function game(userChoice, computerChoice) {
     } else {
       matchResult = `Game over! Draw ${score.user}:${score.computer}`;
     }
-    display.textContent = `${matchResult}\n Click here to start a new game.`;
+    display.textContent = `${matchResult} Click here to start a new game.`;
     display.addEventListener("click", refresh);
     display.classList.add("pointerable");
-    //score.computer = 0;
-    //score.user = 0;
+    buttons.forEach((button) => {
+      button.removeEventListener("click", callGame);
+      button.classList.remove("pointerable");
+    });
   }
 }
 
@@ -131,4 +126,14 @@ function refresh() {
   display.removeEventListener("click", refresh);
   display.textContent = "Click a button to start";
   display.classList.remove("pointerable");
+  buttons.forEach((button) => {
+    button.addEventListener("click", callGame);
+    button.classList.add("pointerable");
+  });
 }
+
+function callGame(event) {
+  game(event.target.id, getComputerChoice());
+}
+
+refresh();

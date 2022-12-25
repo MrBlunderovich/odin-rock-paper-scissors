@@ -14,7 +14,6 @@ body {
 .rps-button {
   height: 50px;
   width: 150px;
-  cursor: pointer;
 }
 .display {
   width: 100%;
